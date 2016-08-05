@@ -1,5 +1,5 @@
-#include <iostream>
+#include "Application/Application.hpp"
 
 int main() {
-  std::cout << "Test";
+  Application application("glfw-cmake-boilerplate", 640, 480);
 }
