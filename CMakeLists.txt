@@ -41,3 +41,8 @@ else()
 endif()
 
 target_link_libraries(${APP_NAME} glfw ${GLFW_LIBRARIES})
+
+# ┌──────────────────────────────────────────────────────────────────┐
+# │  POST build                                                      │
+# └──────────────────────────────────────────────────────────────────┘
+add_custom_target(run COMMAND open ${APP_NAME}.app && quit)
