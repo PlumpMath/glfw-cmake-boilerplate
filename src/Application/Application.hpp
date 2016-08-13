@@ -9,22 +9,18 @@
 #ifndef Application_hpp
 #define Application_hpp
 
-//#include <string>
+// #include <string>
 #include <iostream>
 #include <GLFW/glfw3.h>
 
 class Application {
 public:
-    Application() {
-        
-    }
-    
-    virtual ~Application() {
-        
-    }
+
+  Application() {}
+
+  virtual ~Application() {}
 
   GLFWwindow *window;
-
 
 
   virtual void run(Application *app) {
@@ -36,8 +32,8 @@ public:
       std::cout << "GLFW initialized" << std::endl;
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 
     // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     this->window = glfwCreateWindow(640,
@@ -53,20 +49,18 @@ public:
     }
 
     glfwMakeContextCurrent(this->window);
-      
-      while(true) {
-          render(glfwGetTime());
-          glfwSwapBuffers(window);
-          glfwPollEvents();
-      }
-      
-      glfwDestroyWindow(window);
-      glfwTerminate();
-  }
-    
-    virtual void render(double currentTime) {
-        
+
+    while (true) {
+      render(glfwGetTime());
+      glfwSwapBuffers(window);
+      glfwPollEvents();
     }
+
+    glfwDestroyWindow(window);
+    glfwTerminate();
+  }
+
+  virtual void render(double currentTime) {}
 };
 
 #define DECLARE_MAIN(a)                 \
