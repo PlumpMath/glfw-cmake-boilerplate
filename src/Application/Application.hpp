@@ -9,12 +9,15 @@
 #ifndef Application_hpp
 #define Application_hpp
 
-#include <iostream>
 #include <GLFW/glfw3.h>
+#include <string>
 
 class Application {
 public:
     GLFWwindow *window;
+    std::string title;
+    int width;
+    int height;
     
     Application();
     virtual ~Application();
