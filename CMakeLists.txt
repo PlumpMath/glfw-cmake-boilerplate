@@ -1,10 +1,15 @@
 cmake_minimum_required(VERSION 2.8)
+set(ENGINE_NAME "your-engine-name")
+
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │  VARIABLE POOL                                                   │
 # └──────────────────────────────────────────────────────────────────┘
 set(GLFW_SOURCE_DIR "lib/glfw")
-file(GLOB_RECURSE SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/*)
+include_directories(${PROJECT_SOURCE_DIR}/YourEngineName)
+set(SOURCE YourEngineName/src/Application.cpp)
+set(HEADERS YourEngineName/include/Application.hpp)
+#file(GLOB_RECURSE SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/*)
 
 
 # ┌──────────────────────────────────────────────────────────────────┐
@@ -30,15 +35,15 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Cocoa -framewor
 # │  APPLE CLAUSE                                                    │
 # └──────────────────────────────────────────────────────────────────┘
 if (APPLE)
-    set(APP_NAME "glfw-cmake-boilerplate")
+    set(APP_NAME "glfw-cmake-boilerplate-launcher")
 
     if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/icon.icns)
         add_executable(${APP_NAME} MACOSX_BUNDLE main.cpp icon.icns)
         set_source_files_properties("icon.icns" PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
         set_target_properties(${APP_NAME} PROPERTIES MACOSX_BUNDLE_ICON_FILE ${CMAKE_CURRENT_SOURCE_DIR}/icon.icns)
     else ()
-
-        add_executable(${APP_NAME} MACOSX_BUNDLE ${SOURCE_FILES})
+        add_executable(${APP_NAME} MACOSX_BUNDLE main.cpp)
+        #add_executable(${APP_NAME} MACOSX_BUNDLE ${SOURCE_FILES})
     endif ()
 
 #    set_target_properties(${APP_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/app.plist.in)
@@ -52,10 +57,15 @@ else()
     add_executable(${APP_NAME} main.cpp)
 endif()
 
+#add_executable(${APP_NAME} MACOSX_BUNDLE main.cpp ${HEADER_FILES})
+#add_library(${APP_NAME}_static STATIC ${SOURCE_FILES})
+
 # ┌──────────────────────────────────────────────────────────────────┐
 # │  LINK LIBRARIES                                                  │
 # └──────────────────────────────────────────────────────────────────┘
-target_link_libraries(${APP_NAME} glfw ${GLFW_LIBRARIES})
+add_subdirectory(${ENGINE_NAME})
+include_directories(${ENGINE_NAME}/include)
+target_link_libraries(${APP_NAME} ${ENGINE_NAME})
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │  POST BUILD COMMANDS                                             │
