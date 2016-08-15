@@ -1,28 +1,20 @@
-
-//  Application.hpp
-//  glfw-cmake-boilerplate
-//
-//  Created by Ackou Jens on 05/08/2016.
-//
-//
-
-#ifndef Application_hpp
-#define Application_hpp
+#ifndef Engine_hpp
+#define Engine_hpp
 
 #include <GLFW/glfw3.h>
 #include <string>
 
-class Application {
+class Engine {
 public:
     GLFWwindow *window;
-    std::string title;
+    const char *title;
     int width;
     int height;
-    
-    Application();
-    virtual ~Application();
 
-    virtual void run(Application *app);
+    Engine();
+    virtual ~Engine();
+
+    virtual void run(Engine *app);
 
     virtual void render(double currentTime);
 };
@@ -30,12 +22,10 @@ public:
 #define DECLARE_MAIN(a)                 \
   int main(int argc, const char **argv) \
   {                                     \
-                                        \
     a *app = new a;                     \
-                                        \
     app->run(app);                      \
     delete app;                         \
     return 0;                           \
   }
 
-#endif /* Application_hpp */
+#endif /* Engine_hpp */
