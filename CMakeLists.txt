@@ -60,12 +60,19 @@ endif()
 #add_executable(${APP_NAME} MACOSX_BUNDLE main.cpp ${HEADER_FILES})
 #add_library(${APP_NAME}_static STATIC ${SOURCE_FILES})
 
+
 # ┌──────────────────────────────────────────────────────────────────┐
 # │  LINK LIBRARIES                                                  │
 # └──────────────────────────────────────────────────────────────────┘
 add_subdirectory(${ENGINE_NAME})
 include_directories(${ENGINE_NAME}/include)
 target_link_libraries(${APP_NAME} ${ENGINE_NAME})
+
+# ┌──────────────────────────────────────────────────────────────────┐
+# │  Projects                                                  │
+# └──────────────────────────────────────────────────────────────────┘
+add_executable(TestProject TestProject/TestProject.cpp)
+target_link_libraries(TestProject ${ENGINE_NAME})
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │  POST BUILD COMMANDS                                             │
